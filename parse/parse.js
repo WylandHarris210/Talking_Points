@@ -1,16 +1,24 @@
 const data = require('./dev.json')[0].trends;
 
-const topThreeResults = [];
 
+/** Get Twitter Api*/
 
-for(let i = 0; i < 3; i++) {
-  // Internet Link to Tweetconsole.log("http://twitter.com/search?q=" + data[i].query);
-  topThreeResults[i] = data[i].name;
+function getTwitterTrendsResults() {
+
+  const topThreeResults = [];
+  for(let i = 0; i < 25; i++) {    [ bob, ,jerry ]
+    // Internet Link to Tweetconsole.log("http://twitter.com/search?q=" + data[i].query);
+    const currentName = data[i].name;
+    if(!currentName.includes('#')){
+      topThreeResults[i] = data[i].name;
+    }
+  }
+  return topThreeResults;
 }
 
-console.log("All trending topics are:");
-console.log(topThreeResults);
 
+
+console.log("All trending topics are:");
 
 /** function that sends twitter trends results to readable csv file */
 const fs = require('fs');
@@ -31,7 +39,6 @@ function sendTwitterTrendResults(array) {
   });
 }
 
-const topResult = topThreeResults[1];
 
 /** API key for ChatGPT API Calls ------------------------ */
 const apiKey = '';
@@ -67,5 +74,6 @@ function getAnswerFromOpenAI(apiKey2, prompt2, topResult){
 
 
 //getAnswerFromOpenAI(apiKey, prompt);
-getAnswerFromOpenAI(apiKey, prompt, topResult);
-sendTwitterTrendResults(topThreeResults);
+let twitterTrendResults = getTwitterTrendsResults();
+getAnswerFromOpenAI(apiKey, prompt, twitterTrendResults);
+sendTwitterTrendResults(twitterTrendResults);

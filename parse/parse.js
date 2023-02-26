@@ -11,6 +11,7 @@ for(let i = 0; i < 3; i++) {
 console.log("All trending topics are:");
 console.log(topThreeResults);
 
+
 /** function that sends twitter trends results to readable csv file */
 const fs = require('fs');
 
@@ -30,10 +31,10 @@ function sendTwitterTrendResults(array) {
   });
 }
 
-const topResult = topThreeResults[20];
+const topResult = topThreeResults[1];
 
 /** API key for ChatGPT API Calls ------------------------ */
-const apiKey = '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';
+const apiKey = '';
 const prompt = "'Tell me about '";
 
 // Function that gets answer from prompt
@@ -57,9 +58,8 @@ function getAnswerFromOpenAI(apiKey2, prompt2, topResult){
     });
     
     const responseData = response.data.choices[0].text;
-    
+    console.log(responseData);
     return(responseData);
-    // console.log(responseData);
   }
   generateResponse();
 }

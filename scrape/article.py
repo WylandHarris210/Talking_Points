@@ -44,7 +44,7 @@ if __name__ == '__main__':
         for i in range(NUM_TOPICS):
             big_chungus[str(reader[0][i])] = main(reader[0][i], i)
 
-    with open('Tweeter/outputs.json', 'w') as outfile:
+    with open('parse/outputs.json', 'w') as outfile:
         # outfile.write(json.dumps(big_chungus))
         temp = json.dumps(big_chungus)
         outfile.write(temp)

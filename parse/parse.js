@@ -3,7 +3,7 @@ const data = require('./dev.json')[0].trends;
 const topThreeResults = [];
 
 
-for(let i = 0; i < 25; i++) {
+for(let i = 0; i < 3; i++) {
   // Internet Link to Tweetconsole.log("http://twitter.com/search?q=" + data[i].query);
   topThreeResults[i] = data[i].name;
 }
@@ -11,12 +11,33 @@ for(let i = 0; i < 25; i++) {
 console.log("All trending topics are:");
 console.log(topThreeResults);
 
-const topResult = topThreeResults[0];
+/** function that sends twitter trends results to readable csv file */
+const fs = require('fs');
 
-const apiKey = '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';
+function sendTwitterTrendResults(array) {  
+  // Define the CSV data rows
+  const dataRows = array.map(obj => {
+    return Object.values(obj).join('');
+  });
+  
+  // Combine the header and data rows into a single string
+  const csvData = dataRows.join(',');
+  
+  // Write the CSV data to a file
+  fs.writeFile('../scrape/topics.csv', csvData, (err) => {
+    if (err) throw err;
+    console.log('Data written to CSV file successfully');
+  });
+}
+
+const topResult = topThreeResults[20];
+
+/** API key for ChatGPT API Calls ------------------------ */
+const apiKey = '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';
 const prompt = "'Tell me about '";
 
-function getAnswerFromOpenAI2(apiKey2, prompt2, topResult){
+// Function that gets answer from prompt
+function getAnswerFromOpenAI(apiKey2, prompt2, topResult){
   const { Configuration, OpenAIApi } = require("openai");
 
   const configuration = new Configuration({
@@ -36,11 +57,15 @@ function getAnswerFromOpenAI2(apiKey2, prompt2, topResult){
     });
     
     const responseData = response.data.choices[0].text;
-    console.log(responseData);
+    
+    return(responseData);
+    // console.log(responseData);
   }
   generateResponse();
 }
 
 
+
 //getAnswerFromOpenAI(apiKey, prompt);
-getAnswerFromOpenAI2(apiKey, prompt, topResult);
+getAnswerFromOpenAI(apiKey, prompt, topResult);
+sendTwitterTrendResults(topThreeResults);

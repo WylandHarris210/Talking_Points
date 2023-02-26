@@ -32,7 +32,7 @@ def main(topic, num):
         stories_urls[i] = 'https://news.google.com' + stories_list[i].find('a', attrs = { 'class': 'VDXfz' })['href'][1:]
 
     # stories_urls_json = json.dumps(stories_urls)
-    return json.dumps(stories_urls)
+    return stories_urls
 
     # with open('scrape/links' + str(num) + '.json', 'w') as outfile:
     #     outfile.write(stories_urls_json)

@@ -9,7 +9,9 @@ def twireq():
     'Cookie': 'guest_id=v1%3A167734669699093551; guest_id_ads=v1%3A167734669699093551; guest_id_marketing=v1%3A167734669699093551; personalization_id="v1_zXS78KySxicfVHRnP7YLWw=="'
     }
     response = requests.request("GET", url, headers=headers, data=payload)
-    print(response.text)
+    r = response.json()
+    with open('parse/dev.json', 'w') as f:
+        json.dump(r, f)
 globarr = {}
 def get_element_from_json(json_str, key):
     json_obj = json.loads(json_str)
@@ -41,4 +43,5 @@ def ttsorg():
 # readjson()
 # print(globarr)
 # ttsorg()
-get_query('dev.json')
+# get_query('dev.json')
+twireq()

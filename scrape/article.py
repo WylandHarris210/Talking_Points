@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 import csv
 import json
 
-NUM_ARTICLES = 2
+NUM_ARTICLES = 1
 NUM_TOPICS = 5
 
 def getLinks(topic, num):
@@ -42,7 +42,8 @@ def main():
     with open('scrape/topics.csv', newline='') as f:
         reader = list(csv.reader(f))
         for i in range(NUM_TOPICS):
-            big_chungus[str(reader[0][i])] = getLinks(reader[0][i], i)
+            big_chungus[i] = getLinks(reader[0][i], i)
+            # big_chungus[str(reader[0][i])] = getLinks(reader[0][i], i)
 
     with open('parse/outputs.json', 'w') as outfile:
         # outfile.write(json.dumps(big_chungus))

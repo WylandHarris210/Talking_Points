@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 import csv
 import json
 
-NUM_ARTICLES = 3
+NUM_ARTICLES = 2
 NUM_TOPICS = 5
 
 def main(topic, num):
@@ -31,14 +31,20 @@ def main(topic, num):
     for i in range(NUM_ARTICLES):
         stories_urls[i] = 'https://news.google.com' + stories_list[i].find('a', attrs = { 'class': 'VDXfz' })['href'][1:]
 
-    stories_urls_json = json.dumps(stories_urls)
+    # stories_urls_json = json.dumps(stories_urls)
+    return stories_urls
 
-    with open('scrape/links' + str(num) + '.json', 'w') as outfile:
-        outfile.write(stories_urls_json)
+    # with open('scrape/links' + str(num) + '.json', 'w') as outfile:
+    #     outfile.write(stories_urls_json)
 
 if __name__ == '__main__':
+    big_chungus = dict()
     with open('scrape/topics.csv', newline='') as f:
         reader = list(csv.reader(f))
-        # print(list(reader))
         for i in range(NUM_TOPICS):
-            main(reader[0][i], i)
+            big_chungus[str(reader[0][i])] = main(reader[0][i], i)
+
+    with open('parse/outputs.json', 'w') as outfile:
+        # outfile.write(json.dumps(big_chungus))
+        temp = json.dumps(big_chungus)
+        outfile.write(temp)

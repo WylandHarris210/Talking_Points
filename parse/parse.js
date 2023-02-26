@@ -1,8 +1,6 @@
 const data = require('./dev.json')[0].trends;
 
-
-/** Get Twitter Api*/
-
+/** Parse Twitter Information*/
 function getTwitterTrendsResults() {
 
   let topThreeResults = [];

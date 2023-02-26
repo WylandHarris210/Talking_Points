@@ -47,12 +47,16 @@ function sendTwitterTrendResults(array) {
 
 
 /** API key for ChatGPT API Calls ------------------------ */
-const apiKey = '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';
-const prompt = "'Tell me about '"; 
+const apiKey = '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';
+const prompt = "'Give me a 2 sentence summary of this article: '"; 
 
 // Function that gets answer from prompt
-function getAnswerFromOpenAI(apiKey2, prompt2, topResult){
+function getAnswerFromOpenAI(apiKey2, prompt2){
   const { Configuration, OpenAIApi } = require("openai");
+  const data = require('./outputs.json');
+  
+  console.log(data.Leicester[0]);
+
 
   const configuration = new Configuration({
     apiKey: apiKey2,
@@ -62,7 +66,7 @@ function getAnswerFromOpenAI(apiKey2, prompt2, topResult){
   async function generateResponse() {
     const response = await openai.createCompletion({
       model: "text-ada-001",
-      prompt: prompt2 + topResult,
+      prompt: prompt2 + data,
       temperature: 0.7,
       max_tokens: 500,
       top_p: 1,
